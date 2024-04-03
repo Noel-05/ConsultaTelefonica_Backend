@@ -23,5 +23,6 @@ public class Rol {
     @GeneratedValue
     private Long id;
     
+    private String code;
     private String name;
 }
