@@ -38,7 +38,7 @@ public class RolController {
     }
     
     @GetMapping("/rol/{id}")
-    Rol getRol(@PathVariable Long id){
+    Rol getRolById(@PathVariable Long id){
         return rolRepository.findById(id)
                 .orElseThrow(() -> new RolNotFoundException(id));
     }
@@ -62,7 +62,7 @@ public class RolController {
         }
         rolRepository.deleteById(id);
         
-        return "User with id " + id + " has been deleted succesfully.";
+        return "User with id " + id + " has been succesfully deleted.";
     }
     
     /*@DeleteMapping("/rol/{id}")

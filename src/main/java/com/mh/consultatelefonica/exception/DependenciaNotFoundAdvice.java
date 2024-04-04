@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author noel.renderos
  */
 @ControllerAdvice
-public class RolNotFoundAdvice {
+public class DependenciaNotFoundAdvice {
     
     @ResponseBody
-    @ExceptionHandler(RolNotFoundException.class)
+    @ExceptionHandler(DependenciaNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> rolNotFoundHandler(RolNotFoundException exception){
+    public Map<String, String> dependenciaNotFoundHandler(DependenciaNotFoundException exception){
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());
         
