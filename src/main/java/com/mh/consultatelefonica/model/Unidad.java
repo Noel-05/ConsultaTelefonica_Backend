@@ -6,7 +6,6 @@ package com.mh.consultatelefonica.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -31,8 +30,9 @@ public class Unidad {
     private String name;
     private String address;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "dependencia_id")
-    @JsonIgnore
+    //@JsonIgnore
     private Dependencia dependencia;
 }
