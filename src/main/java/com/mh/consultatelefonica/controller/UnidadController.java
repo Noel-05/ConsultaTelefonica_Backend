@@ -48,7 +48,7 @@ public class UnidadController {
     }
     
     @GetMapping("/unidad/{id}")
-    Unidad getUnidad(@PathVariable Long id){
+    Unidad getUnidadById(@PathVariable Long id){
         return unidadRepository.findById(id)
                 .orElseThrow(() -> new UnidadNotFoundException(id));
     }

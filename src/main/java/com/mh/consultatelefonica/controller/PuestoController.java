@@ -56,7 +56,7 @@ public class PuestoController {
     }
     
     @GetMapping("/puesto/{id}")
-    Puesto getPuesto(@PathVariable Long id){
+    Puesto getPuestoById(@PathVariable Long id){
         return puestoRepository.findById(id)
                 .orElseThrow(() -> new PuestoNotFoundException(id));
     }
