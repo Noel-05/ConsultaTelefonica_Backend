@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mh.consultatelefonica.exception;
+package com.mh.consultatelefonica.advice;
 
+import com.mh.consultatelefonica.exception.UnidadNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author noel.renderos
  */
 @ControllerAdvice
-public class RolNotFoundAdvice {
+public class UnidadNotFoundAdvice {
     
     @ResponseBody
-    @ExceptionHandler(RolNotFoundException.class)
+    @ExceptionHandler(UnidadNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> rolNotFoundHandler(RolNotFoundException exception){
+    public Map<String, String> unidadNotFoundHandler(UnidadNotFoundException exception){
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("errorMessage", exception.getMessage());
         
