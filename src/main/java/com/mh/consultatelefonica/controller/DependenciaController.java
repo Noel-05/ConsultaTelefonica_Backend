@@ -7,6 +7,7 @@ package com.mh.consultatelefonica.controller;
 import com.mh.consultatelefonica.exception.DependenciaNotFoundException;
 import com.mh.consultatelefonica.model.Dependencia;
 import com.mh.consultatelefonica.repository.DependenciaRepository;
+import com.mh.consultatelefonica.service.DependenciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,44 +26,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class DependenciaController {
     
     @Autowired
-    private DependenciaRepository dependenciaRepository;
+    private DependenciaService dependenciaService;
     
     @PostMapping("/dependencia")
-    Dependencia newDependencia(@RequestBody Dependencia newDependencia){
-        return dependenciaRepository.save(newDependencia);
+    public Dependencia newDependencia(@RequestBody Dependencia newDependencia){
+        return dependenciaService.saveDependencia(newDependencia);
     }
     
     @GetMapping("/dependencias")
-    List<Dependencia> getDependencias(){
-        return dependenciaRepository.findAll();
+    public List<Dependencia> getDependencias(){
+        return dependenciaService.getDependencias();
     }
     
     @GetMapping("/dependencia/{id}")
-    Dependencia getDependenciaById(@PathVariable Long id){
-        return dependenciaRepository.findById(id)
-                .orElseThrow(() -> new DependenciaNotFoundException(id));
+    public Dependencia getDependenciaById(@PathVariable Long id){
+        return dependenciaService.getDependenciaById(id);
     }
     
     @PutMapping("/dependencia/{id}")
-    Dependencia updateDependencia(@RequestBody Dependencia newDependencia, @PathVariable Long id){
-        return dependenciaRepository.findById(id)
-                .map(dependencia -> {
-                    dependencia.setCode(newDependencia.getCode());
-                    dependencia.setName(newDependencia.getName());
-                    dependencia.setAddress(newDependencia.getAddress());
-                    
-                    return dependenciaRepository.save(dependencia);
-                })
-                .orElseThrow(() -> new DependenciaNotFoundException(id));
+    public Dependencia updateDependencia(@RequestBody Dependencia newDependencia, @PathVariable Long id){
+        return dependenciaService.updateDependencia(newDependencia, id);
     }
     
     @DeleteMapping("/dependencia/{id}")
-    String deleteDependencia(@PathVariable Long id){
-        if(!dependenciaRepository.existsById(id)){
-            throw new DependenciaNotFoundException(id);
-        }
-        dependenciaRepository.deleteById(id);
-        
-        return "Dependencia with id " + id + " has been succesfully deleted.";
+    public String deleteDependencia(@PathVariable Long id){
+        return dependenciaService.deleteDependencia(id);
     }
 }
