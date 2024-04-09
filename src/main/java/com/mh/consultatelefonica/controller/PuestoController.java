@@ -36,7 +36,8 @@ public class PuestoController {
     @Autowired
     private UnidadRepository unidadRepository;
     
-    @Autowired PuestoRepository puestoRepository;
+    @Autowired 
+    private PuestoRepository puestoRepository;
     
     @PostMapping("/puesto/{rolId}/{unidadId}")
     Puesto newPuesto(@RequestBody Puesto newPuesto, @PathVariable("rolId") Long rolId, @PathVariable("unidadId") Long unidadId){
