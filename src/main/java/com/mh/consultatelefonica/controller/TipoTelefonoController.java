@@ -4,9 +4,8 @@
  */
 package com.mh.consultatelefonica.controller;
 
-import com.mh.consultatelefonica.exception.TipoTelefonoNotFoundException;
 import com.mh.consultatelefonica.model.TipoTelefono;
-import com.mh.consultatelefonica.repository.TipoTelefonoRepository;
+import com.mh.consultatelefonica.service.TipoTelefonoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,42 +24,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class TipoTelefonoController {
     
     @Autowired
-    private TipoTelefonoRepository tipoTelefonoRepository;
+    private TipoTelefonoService tipoTelefonoService;
     
     @PostMapping("/tipoTelefono")
-    TipoTelefono newTipoTelefono(@RequestBody TipoTelefono newTipoTelefono){
-        return tipoTelefonoRepository.save(newTipoTelefono);
+    public TipoTelefono newTipoTelefono(@RequestBody TipoTelefono newTipoTelefono){
+        return tipoTelefonoService.saveTipoTelefono(newTipoTelefono);
     }
     
     @GetMapping("/tipoTelefonos")
-    List<TipoTelefono> getTipoTelefonos(){
-        return tipoTelefonoRepository.findAll();
+    public List<TipoTelefono> getTipoTelefonos(){
+        return tipoTelefonoService.getTipoTelefonos();
     }
     
     @GetMapping("/tipoTelefono/{id}")
-    TipoTelefono getTipoTelefonoById(@PathVariable Long id){
-        return tipoTelefonoRepository.findById(id)
-                .orElseThrow(() -> new TipoTelefonoNotFoundException(id));
+    public TipoTelefono getTipoTelefonoById(@PathVariable Long id){
+        return tipoTelefonoService.getTipoTelefonoById(id);
     }
     
     @PutMapping("/tipoTelefono/{id}")
-    TipoTelefono updateTipoTelefono(@RequestBody TipoTelefono newTipoTelefono, @PathVariable Long id){
-        return tipoTelefonoRepository.findById(id)
-                .map(tipoTelefono -> {
-                    tipoTelefono.setName(newTipoTelefono.getName());
-                    
-                    return tipoTelefonoRepository.save(tipoTelefono);
-                })
-                .orElseThrow(() -> new TipoTelefonoNotFoundException(id));
+    public TipoTelefono updateTipoTelefono(@RequestBody TipoTelefono newTipoTelefono, @PathVariable Long id){
+        return tipoTelefonoService.updateTipoTelefono(newTipoTelefono, id);
     }
     
     @DeleteMapping("/tipoTelefono/{id}")
-    String deleteTipoTelefono(@PathVariable Long id){
-        if(!tipoTelefonoRepository.existsById(id)){
-            throw new TipoTelefonoNotFoundException(id);
-        }
-        tipoTelefonoRepository.deleteById(id);
-        
-        return "Tipo Telefono with id " + id + " has been succesfully deleted";
+    public String deleteTipoTelefono(@PathVariable Long id){
+        return tipoTelefonoService.deleteTipoTelefono(id);
     }
 }
