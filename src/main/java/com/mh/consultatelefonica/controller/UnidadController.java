@@ -4,12 +4,8 @@
  */
 package com.mh.consultatelefonica.controller;
 
-import com.mh.consultatelefonica.exception.DependenciaNotFoundException;
-import com.mh.consultatelefonica.exception.UnidadNotFoundException;
-import com.mh.consultatelefonica.model.Dependencia;
 import com.mh.consultatelefonica.model.Unidad;
-import com.mh.consultatelefonica.repository.DependenciaRepository;
-import com.mh.consultatelefonica.repository.UnidadRepository;
+import com.mh.consultatelefonica.service.UnidadService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,55 +24,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class UnidadController {
     
     @Autowired
-    private UnidadRepository unidadRepository;
-    
-    @Autowired
-    private DependenciaRepository dependenciaRepository;
+    private UnidadService unidadService;
     
     @PostMapping("/unidad/{dependenciaId}")
-    Unidad newUnidad(@RequestBody Unidad newUnidad, @PathVariable Long dependenciaId){
-        Dependencia dependencia = dependenciaRepository.findById(dependenciaId)
-                .orElseThrow(() -> new DependenciaNotFoundException(dependenciaId));
-        newUnidad.setDependencia(dependencia);
-        
-        return unidadRepository.save(newUnidad);
+    public Unidad newUnidad(@RequestBody Unidad newUnidad, @PathVariable Long dependenciaId){
+        return unidadService.saveUnidad(newUnidad, dependenciaId);
     }
     
     @GetMapping("/unidades")
-    List<Unidad> getUnidades(){
-        return unidadRepository.findAll();
+    public List<Unidad> getUnidades(){
+        return unidadService.getUnidades();
     }
     
     @GetMapping("/unidad/{id}")
-    Unidad getUnidadById(@PathVariable Long id){
-        return unidadRepository.findById(id)
-                .orElseThrow(() -> new UnidadNotFoundException(id));
+    public Unidad getUnidadById(@PathVariable Long id){
+        return unidadService.getUnidadById(id);
     }
     
     @PutMapping("/unidad/{dependenciaId}/{id}")
-    Unidad updateUnidad(@RequestBody Unidad newUnidad, @PathVariable("dependenciaId") Long dependenciaId, @PathVariable("id") Long id){
-        Dependencia dependencia = dependenciaRepository.findById(dependenciaId)
-                .orElseThrow(() -> new DependenciaNotFoundException(dependenciaId));
-        
-        return unidadRepository.findById(id)
-                .map(unidad -> {
-                    unidad.setCode(newUnidad.getCode());
-                    unidad.setName(newUnidad.getName());
-                    unidad.setAddress(newUnidad.getAddress());
-                    unidad.setDependencia(dependencia);
-                    
-                    return unidadRepository.save(unidad);
-                })
-                .orElseThrow(() -> new UnidadNotFoundException(id));
+    public Unidad updateUnidad(@RequestBody Unidad newUnidad, @PathVariable("dependenciaId") Long dependenciaId, @PathVariable("id") Long id){
+        return unidadService.updateUnidad(newUnidad, dependenciaId, id);
     }
     
     @DeleteMapping("/unidad/{id}")
-    String deleteUnidad(@PathVariable Long id){
-        if(!unidadRepository.existsById(id)){
-            throw new UnidadNotFoundException(id);
-        }
-        unidadRepository.deleteById(id);
-        
-        return "Unidad with id " + id + " has been succesfully deleted";
+    public String deleteUnidad(@PathVariable Long id){
+        return unidadService.deleteUnidad(id);
     }
 }
