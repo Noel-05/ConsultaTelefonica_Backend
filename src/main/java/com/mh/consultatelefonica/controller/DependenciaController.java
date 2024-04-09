@@ -4,9 +4,7 @@
  */
 package com.mh.consultatelefonica.controller;
 
-import com.mh.consultatelefonica.exception.DependenciaNotFoundException;
 import com.mh.consultatelefonica.model.Dependencia;
-import com.mh.consultatelefonica.repository.DependenciaRepository;
 import com.mh.consultatelefonica.service.DependenciaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

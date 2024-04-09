@@ -4,9 +4,8 @@
  */
 package com.mh.consultatelefonica.controller;
 
-import com.mh.consultatelefonica.exception.RolNotFoundException;
 import com.mh.consultatelefonica.model.Rol;
-import com.mh.consultatelefonica.repository.RolRepository;
+import com.mh.consultatelefonica.service.RolService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,59 +24,30 @@ import org.springframework.web.bind.annotation.RestController;
 public class RolController {
     
     @Autowired
-    private RolRepository rolRepository;
+    private RolService rolService;
     
     @PostMapping("/rol")
-    Rol newRol(@RequestBody Rol newRol){
-        return rolRepository.save(newRol);
+    public Rol newRol(@RequestBody Rol newRol){
+        return rolService.saveRol(newRol);
     }
     
     @GetMapping("/roles")
-    List<Rol> getRoles(){
-        return rolRepository.findAll();
+    public List<Rol> getRoles(){
+        return rolService.getRoles();
     }
     
     @GetMapping("/rol/{id}")
-    Rol getRolById(@PathVariable Long id){
-        return rolRepository.findById(id)
-                .orElseThrow(() -> new RolNotFoundException(id));
+    public Rol getRolById(@PathVariable Long id){
+        return rolService.getRolById(id);
     }
     
     @PutMapping("/rol/{id}")
-    Rol updateRol(@RequestBody Rol newRol, @PathVariable Long id){
-        return rolRepository.findById(id)
-                .map(rol -> {
-                    rol.setCode(newRol.getCode());
-                    rol.setName(newRol.getName());
-                    
-                    return rolRepository.save(rol);
-                })
-                .orElseThrow(() -> new RolNotFoundException(id));
+    public Rol updateRol(@RequestBody Rol newRol, @PathVariable Long id){
+        return rolService.updateRol(newRol, id);
     }
     
     @DeleteMapping("/rol/{id}")
-    String deleteRol(@PathVariable Long id){
-        if(!rolRepository.existsById(id)){
-            throw new RolNotFoundException(id);
-        }
-        rolRepository.deleteById(id);
-        
-        return "User with id " + id + " has been succesfully deleted.";
+    public String deleteRol(@PathVariable Long id){
+        return rolService.deleteRol(id);
     }
-    
-    /*@DeleteMapping("/rol/{id}")
-    Map<String, Map> deleteRol(@PathVariable Long id){
-        if(!rolRepository.existsById(id)){
-            throw new RolNotFoundException(id);
-        }
-        rolRepository.deleteById(id);
-        
-        Map<String, String> successMap = new HashMap<>();
-        successMap.put("success", "User with id " + id + " has been deleted succesfully.");
-        
-        Map<String, Map> prueba = new HashMap<>();
-        prueba.put("prueba", successMap);
-        
-        return prueba;
-    }*/
 }

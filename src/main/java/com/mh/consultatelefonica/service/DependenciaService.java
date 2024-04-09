@@ -8,7 +8,6 @@ import com.mh.consultatelefonica.exception.DependenciaNotFoundException;
 import com.mh.consultatelefonica.model.Dependencia;
 import com.mh.consultatelefonica.repository.DependenciaRepository;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
