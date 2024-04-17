@@ -5,7 +5,9 @@
 package com.mh.consultatelefonica.repository;
 
 import com.mh.consultatelefonica.model.Empleado;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,4 +17,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long>{
     
+    @Query("SELECT e FROM Empleado e WHERE e.first_name LIKE CONCAT('%', :firstname, '%')")
+    public List<Empleado> filterEmpleadoFirstName(String firstname);
+    
+    @Query("SELECT e FROM Empleado e WHERE e.last_name LIKE CONCAT('%', :lastname, '%')")
+    public List<Empleado> filterEmpleadoLastName(String lastname);
+    
+    @Query("SELECT e FROM Empleado e WHERE e.first_name LIKE CONCAT('%', :firstname, '%') AND e.last_name LIKE CONCAT('%', :lastname, '%')")
+    public List<Empleado> filterEmpleadoFirstAndLastName(String firstname, String lastname);
 }

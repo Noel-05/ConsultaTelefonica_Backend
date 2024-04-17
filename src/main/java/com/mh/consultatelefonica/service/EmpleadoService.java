@@ -8,6 +8,7 @@ import com.mh.consultatelefonica.exception.EmpleadoNotFoundException;
 import com.mh.consultatelefonica.model.Empleado;
 import com.mh.consultatelefonica.model.Puesto;
 import com.mh.consultatelefonica.repository.EmpleadoRepository;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,21 @@ public class EmpleadoService {
         empleadoRepository.deleteById(id);
         
         return "Employee with id " + id + " has been succesfully deleted";
+    }
+    
+    public List<Empleado> filterEmpleados(String firstname, String lastname){
+        if(!firstname.equals("") && lastname.equals("")){
+            return empleadoRepository.filterEmpleadoFirstName(firstname);
+        }
+        
+        if(firstname.equals("") && !lastname.equals("")){
+            return empleadoRepository.filterEmpleadoLastName(lastname);
+        }
+        
+        if(!firstname.equals("") && !lastname.equals("")){
+            return empleadoRepository.filterEmpleadoFirstAndLastName(firstname, lastname);
+        }else{
+            return new ArrayList<>();
+        }
     }
 }
