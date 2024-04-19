@@ -8,6 +8,7 @@ import com.mh.consultatelefonica.model.EmpleadoTelefono;
 import com.mh.consultatelefonica.service.EmpleadoTelefonoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author noel.renderos
  */
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class EmpleadoTelefonoController {
     
     @Autowired
@@ -41,7 +43,7 @@ public class EmpleadoTelefonoController {
     
     @GetMapping("/empleadoTelefono/{id}")
     public EmpleadoTelefono getEmpleadoTelefonoById(@PathVariable Long id){
-        return empleadoTelefonoService.getEmpleadoById(id);
+        return empleadoTelefonoService.getEmpleadoTelefonoById(id);
     }
     
     @PutMapping("/empleadoTelefono/{tipoTelefonoId}/{id}")
@@ -55,5 +57,10 @@ public class EmpleadoTelefonoController {
     @DeleteMapping("/empleadoTelefono/{id}")
     public String deleteEmpleadoTelefono(@PathVariable Long id){
         return empleadoTelefonoService.deleteEmpleadoTelefono(id);
+    }
+    
+    @GetMapping("/empleadoTelefono/empleado/{empleadoId}")
+    public List<EmpleadoTelefono> getTelefonosByEmpleadoId(@PathVariable Long empleadoId){
+        return empleadoTelefonoService.getTelefonosByEmpleadoId(empleadoId);
     }
 }

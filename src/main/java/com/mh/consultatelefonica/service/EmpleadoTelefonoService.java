@@ -42,7 +42,7 @@ public class EmpleadoTelefonoService {
         return empleadoTelefonoRepository.findAll();
     }
     
-    public EmpleadoTelefono getEmpleadoById(Long id){
+    public EmpleadoTelefono getEmpleadoTelefonoById(Long id){
         return empleadoTelefonoRepository.findById(id)
                 .orElseThrow(() -> new EmpleadoTelefonoNotFoundException(id));
     }
@@ -67,5 +67,9 @@ public class EmpleadoTelefonoService {
         empleadoTelefonoRepository.deleteById(id);
         
         return "Empleado Telefono with id " + id + " has been succesfully deleted";
+    }
+    
+    public List<EmpleadoTelefono> getTelefonosByEmpleadoId(Long empleadoId){
+        return empleadoTelefonoRepository.getTelefonosByEmpleadoId(empleadoId);
     }
 }
