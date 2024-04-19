@@ -18,11 +18,12 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface EmpleadoMapper {
     
-    @Mapping(source = "birth_date", target = "birth_date", dateFormat = "dd-MM-yyyy")
-    @Mapping(source = "start_date", target = "start_date", dateFormat = "dd-MM-yyyy")
+    @Mapping(source = "birth_date", target = "birth_date", dateFormat = "dd/MM/yyyy")
+    @Mapping(source = "start_date", target = "start_date", dateFormat = "dd/MM/yyyy")
     @Mapping(source = "puesto.id", target = "puesto_id")
     @Mapping(source = "puesto.name", target = "puesto_name")
     @Mapping(source = "puesto.rol.id", target = "rol_id")
+    @Mapping(source = "puesto.rol.code", target = "rol_code")
     @Mapping(source = "puesto.rol.name", target = "rol_name")
     @Mapping(source = "puesto.unidad.id", target = "unidad_id")
     @Mapping(source = "puesto.unidad.name", target = "unidad_name")

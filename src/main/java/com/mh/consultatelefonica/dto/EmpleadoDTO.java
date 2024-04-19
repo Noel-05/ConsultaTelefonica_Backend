@@ -27,6 +27,7 @@ public class EmpleadoDTO {
     private String puesto_name;
     
     private Long rol_id;
+    private String rol_code;    
     private String rol_name;
     
     private Long unidad_id;
