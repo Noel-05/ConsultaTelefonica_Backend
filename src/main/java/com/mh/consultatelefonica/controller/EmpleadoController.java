@@ -4,6 +4,7 @@
  */
 package com.mh.consultatelefonica.controller;
 
+import com.mh.consultatelefonica.dto.EmpleadoDTO;
 import com.mh.consultatelefonica.model.Empleado;
 import com.mh.consultatelefonica.service.EmpleadoService;
 import java.util.List;
@@ -55,7 +56,7 @@ public class EmpleadoController {
     }
     
     @GetMapping("/empleado")
-    public List<Empleado> filterEmpleados(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname){
+    public List<EmpleadoDTO> filterEmpleados(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname){
         return empleadoService.filterEmpleados(firstname, lastname);
     }
 }

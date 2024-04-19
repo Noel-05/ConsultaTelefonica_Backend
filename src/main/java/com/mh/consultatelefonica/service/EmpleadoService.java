@@ -4,7 +4,9 @@
  */
 package com.mh.consultatelefonica.service;
 
+import com.mh.consultatelefonica.dto.EmpleadoDTO;
 import com.mh.consultatelefonica.exception.EmpleadoNotFoundException;
+import com.mh.consultatelefonica.mapper.EmpleadoMapper;
 import com.mh.consultatelefonica.model.Empleado;
 import com.mh.consultatelefonica.model.Puesto;
 import com.mh.consultatelefonica.repository.EmpleadoRepository;
@@ -25,6 +27,9 @@ public class EmpleadoService {
     
     @Autowired
     private EmpleadoRepository empleadoRepository;
+    
+    @Autowired
+    private EmpleadoMapper empleadoMapper;
     
     public Empleado saveEmpleado(Empleado newEmpleado, Long puestoId){
         Puesto findPuesto = puestoService.getPuestoById(puestoId);
@@ -69,17 +74,20 @@ public class EmpleadoService {
         return "Employee with id " + id + " has been succesfully deleted";
     }
     
-    public List<Empleado> filterEmpleados(String firstname, String lastname){
+    public List<EmpleadoDTO> filterEmpleados(String firstname, String lastname){
         if(!firstname.equals("") && lastname.equals("")){
-            return empleadoRepository.filterEmpleadoFirstName(firstname);
+            List<Empleado> empleadosList = empleadoRepository.filterEmpleadoFirstName(firstname);
+            return empleadoMapper.empleadoToDtoList(empleadosList);
         }
         
         if(firstname.equals("") && !lastname.equals("")){
-            return empleadoRepository.filterEmpleadoLastName(lastname);
+            List<Empleado> empleadosList = empleadoRepository.filterEmpleadoLastName(lastname);
+            return empleadoMapper.empleadoToDtoList(empleadosList);
         }
         
         if(!firstname.equals("") && !lastname.equals("")){
-            return empleadoRepository.filterEmpleadoFirstAndLastName(firstname, lastname);
+            List<Empleado> empleadosList = empleadoRepository.filterEmpleadoFirstAndLastName(firstname, lastname);
+            return empleadoMapper.empleadoToDtoList(empleadosList);
         }else{
             return new ArrayList<>();
         }
