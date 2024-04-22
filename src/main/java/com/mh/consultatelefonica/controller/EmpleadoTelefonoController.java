@@ -4,6 +4,7 @@
  */
 package com.mh.consultatelefonica.controller;
 
+import com.mh.consultatelefonica.dto.EmpleadoTelefonoDTO;
 import com.mh.consultatelefonica.model.EmpleadoTelefono;
 import com.mh.consultatelefonica.service.EmpleadoTelefonoService;
 import java.util.List;
@@ -60,7 +61,7 @@ public class EmpleadoTelefonoController {
     }
     
     @GetMapping("/empleadoTelefono/empleado/{empleadoId}")
-    public List<EmpleadoTelefono> getTelefonosByEmpleadoId(@PathVariable Long empleadoId){
+    public List<EmpleadoTelefonoDTO> getTelefonosByEmpleadoId(@PathVariable Long empleadoId){
         return empleadoTelefonoService.getTelefonosByEmpleadoId(empleadoId);
     }
 }

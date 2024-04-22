@@ -4,7 +4,9 @@
  */
 package com.mh.consultatelefonica.service;
 
+import com.mh.consultatelefonica.dto.EmpleadoTelefonoDTO;
 import com.mh.consultatelefonica.exception.EmpleadoTelefonoNotFoundException;
+import com.mh.consultatelefonica.mapper.EmpleadoTelefonoMapper;
 import com.mh.consultatelefonica.model.Empleado;
 import com.mh.consultatelefonica.model.EmpleadoTelefono;
 import com.mh.consultatelefonica.model.TipoTelefono;
@@ -28,6 +30,9 @@ public class EmpleadoTelefonoService {
     
     @Autowired
     private EmpleadoTelefonoRepository empleadoTelefonoRepository;
+    
+    @Autowired 
+    private EmpleadoTelefonoMapper empleadoTelefonoMapper;
     
     public EmpleadoTelefono saveEmpleadoTelefono(EmpleadoTelefono newEmpleadoTelefono, Long empleadoId, Long tipoTelefonoId){
         Empleado findEmpleado = empleadoService.getEmpleadoById(empleadoId);
@@ -69,7 +74,8 @@ public class EmpleadoTelefonoService {
         return "Empleado Telefono with id " + id + " has been succesfully deleted";
     }
     
-    public List<EmpleadoTelefono> getTelefonosByEmpleadoId(Long empleadoId){
-        return empleadoTelefonoRepository.getTelefonosByEmpleadoId(empleadoId);
+    public List<EmpleadoTelefonoDTO> getTelefonosByEmpleadoId(Long empleadoId){
+        List<EmpleadoTelefono> listEmpleadoTelefono = empleadoTelefonoRepository.getTelefonosByEmpleadoId(empleadoId);
+        return empleadoTelefonoMapper.empleadoTelefonoToDtoList(listEmpleadoTelefono);
     }
 }
