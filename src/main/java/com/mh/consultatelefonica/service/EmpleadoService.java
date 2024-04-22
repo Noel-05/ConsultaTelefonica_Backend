@@ -92,4 +92,9 @@ public class EmpleadoService {
             return new ArrayList<>();
         }
     }
+    
+    public List<EmpleadoDTO> getEmpleadosConTelefonos(){
+        List<Empleado> empleadosList = empleadoRepository.getEmpleadosConTelefonos();
+        return empleadoMapper.empleadoToDtoList(empleadosList);
+    }
 }

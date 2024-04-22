@@ -59,4 +59,9 @@ public class EmpleadoController {
     public List<EmpleadoDTO> filterEmpleados(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname){
         return empleadoService.filterEmpleados(firstname, lastname);
     }
+    
+    @GetMapping("/empleado/telefonos")
+    public List<EmpleadoDTO> getEmpleadosConTelefonos(){
+        return empleadoService.getEmpleadosConTelefonos();
+    }
 }
