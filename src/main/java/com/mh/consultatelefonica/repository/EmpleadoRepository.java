@@ -28,4 +28,7 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Long>{
     
     @Query("SELECT e FROM EmpleadoTelefono et INNER JOIN et.empleado e WHERE et.empleado.id = e.id")
     public List<Empleado> getEmpleadosConTelefonos();
+    
+    @Query("SELECT e FROM Empleado e INNER JOIN e.puesto p INNER JOIN p.unidad u WHERE u.id = :unidadId")
+    public List<Empleado> getEmpleadosByUnidad(Long unidadId);
 }

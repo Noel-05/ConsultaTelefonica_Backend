@@ -97,4 +97,9 @@ public class EmpleadoService {
         List<Empleado> empleadosList = empleadoRepository.getEmpleadosConTelefonos();
         return empleadoMapper.empleadoToDtoList(empleadosList);
     }
+    
+    public List<EmpleadoDTO> getEmpleadosByUnidad(Long unidadId){
+        List<Empleado> empleadosList = empleadoRepository.getEmpleadosByUnidad(unidadId);
+        return empleadoMapper.empleadoToDtoList(empleadosList);
+    }
 }

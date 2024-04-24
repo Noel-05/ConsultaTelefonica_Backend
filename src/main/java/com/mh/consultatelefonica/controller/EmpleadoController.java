@@ -64,4 +64,9 @@ public class EmpleadoController {
     public List<EmpleadoDTO> getEmpleadosConTelefonos(){
         return empleadoService.getEmpleadosConTelefonos();
     }
+    
+    @GetMapping("/empleado/unidad/{unidadId}")
+    public List<EmpleadoDTO> getEmpleadosByUnidad(@PathVariable Long unidadId){
+        return empleadoService.getEmpleadosByUnidad(unidadId);
+    }
 }
