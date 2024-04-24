@@ -4,7 +4,9 @@
  */
 package com.mh.consultatelefonica.service;
 
+import com.mh.consultatelefonica.dto.UnidadDTO;
 import com.mh.consultatelefonica.exception.UnidadNotFoundException;
+import com.mh.consultatelefonica.mapper.UnidadMapper;
 import com.mh.consultatelefonica.model.Dependencia;
 import com.mh.consultatelefonica.model.Unidad;
 import com.mh.consultatelefonica.repository.UnidadRepository;
@@ -24,6 +26,9 @@ public class UnidadService {
     
     @Autowired
     private UnidadRepository unidadRepository;
+    
+    @Autowired
+    private UnidadMapper unidadMapper;
     
     public Unidad saveUnidad(Unidad newUnidad, Long dependenciaId){
         Dependencia dependencia = dependenciaService.getDependenciaById(dependenciaId);
@@ -63,5 +68,10 @@ public class UnidadService {
         unidadRepository.deleteById(id);
         
         return "Unidad with id " + id + " has been succesfully deleted";
+    }
+    
+    public List<UnidadDTO> getUnidadByDependencia(Long dependenciaId){
+        List<Unidad> listUnidades = unidadRepository.getUnidadByDependencia(dependenciaId);
+        return unidadMapper.unidadToDtoList(listUnidades);
     }
 }

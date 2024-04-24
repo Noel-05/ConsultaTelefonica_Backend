@@ -4,10 +4,12 @@
  */
 package com.mh.consultatelefonica.controller;
 
+import com.mh.consultatelefonica.dto.UnidadDTO;
 import com.mh.consultatelefonica.model.Unidad;
 import com.mh.consultatelefonica.service.UnidadService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author noel.renderos
  */
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class UnidadController {
     
     @Autowired
@@ -49,5 +52,10 @@ public class UnidadController {
     @DeleteMapping("/unidad/{id}")
     public String deleteUnidad(@PathVariable Long id){
         return unidadService.deleteUnidad(id);
+    }
+    
+    @GetMapping("/unidad/dependencia/{dependenciaId}")
+    public List<UnidadDTO> getUnidadByDependencia(@PathVariable Long dependenciaId){
+        return unidadService.getUnidadByDependencia(dependenciaId);
     }
 }

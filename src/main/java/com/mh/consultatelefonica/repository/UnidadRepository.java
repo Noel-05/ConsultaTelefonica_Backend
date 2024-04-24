@@ -5,7 +5,9 @@
 package com.mh.consultatelefonica.repository;
 
 import com.mh.consultatelefonica.model.Unidad;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,4 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UnidadRepository extends JpaRepository<Unidad, Long>{
     
+    @Query("SELECT u FROM Unidad u JOIN u.dependencia d WHERE d.id = :dependenciaId")
+    public List<Unidad> getUnidadByDependencia(Long dependenciaId);
 }
