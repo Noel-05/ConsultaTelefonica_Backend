@@ -37,13 +37,15 @@ public class UnidadService {
         return unidadRepository.save(newUnidad);
     }
     
-    public List<Unidad> getUnidades(){
-        return unidadRepository.findAll();
+    public List<UnidadDTO> getUnidades(){
+        List<Unidad> unidadesList = unidadRepository.findAll();
+        return unidadMapper.unidadToDtoList(unidadesList);
     }
     
-    public Unidad getUnidadById(Long id){
-        return unidadRepository.findById(id)
+    public UnidadDTO getUnidadById(Long id){
+        Unidad unidad = unidadRepository.findById(id)
                 .orElseThrow(() -> new UnidadNotFoundException(id));
+        return unidadMapper.unidadToDto(unidad);
     }
     
     public Unidad updateUnidad(Unidad newUnidad, Long dependenciaId, Long id){

@@ -22,6 +22,7 @@ public class UnidadDTO {
     private String address;
     
     private Long dependencia_id;
+    private String dependencia_code;
     private String dependencia_name;
     
 }

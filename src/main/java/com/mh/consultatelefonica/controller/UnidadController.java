@@ -35,12 +35,12 @@ public class UnidadController {
     }
     
     @GetMapping("/unidades")
-    public List<Unidad> getUnidades(){
+    public List<UnidadDTO> getUnidades(){
         return unidadService.getUnidades();
     }
     
     @GetMapping("/unidad/{id}")
-    public Unidad getUnidadById(@PathVariable Long id){
+    public UnidadDTO getUnidadById(@PathVariable Long id){
         return unidadService.getUnidadById(id);
     }
     
