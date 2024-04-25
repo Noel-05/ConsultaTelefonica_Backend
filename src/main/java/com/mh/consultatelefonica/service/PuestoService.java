@@ -4,8 +4,10 @@
  */
 package com.mh.consultatelefonica.service;
 
+import com.mh.consultatelefonica.dto.PuestoDTO;
 import com.mh.consultatelefonica.dto.UnidadDTO;
 import com.mh.consultatelefonica.exception.PuestoNotFoundException;
+import com.mh.consultatelefonica.mapper.PuestoMapper;
 import com.mh.consultatelefonica.mapper.UnidadMapper;
 import com.mh.consultatelefonica.model.Puesto;
 import com.mh.consultatelefonica.model.Rol;
@@ -34,6 +36,9 @@ public class PuestoService {
     @Autowired 
     private PuestoRepository puestoRepository;
     
+    @Autowired
+    private PuestoMapper puestoMapper;
+    
     public Puesto savePuesto(Puesto newPuesto, Long rolId, Long unidadId){
         Rol findRol = rolService.getRolById(rolId);
         UnidadDTO unidadDto = unidadService.getUnidadById(unidadId);
@@ -44,13 +49,15 @@ public class PuestoService {
         return puestoRepository.save(newPuesto);
     }
     
-    public List<Puesto> getPuestos(){
-        return puestoRepository.findAll();
+    public List<PuestoDTO> getPuestos(){
+        List<Puesto> puestoList = puestoRepository.findAll();
+        return puestoMapper.puestoToDtoList(puestoList);
     }
     
-    public Puesto getPuestoById(Long id){
-        return puestoRepository.findById(id)
+    public PuestoDTO getPuestoById(Long id){
+        Puesto puesto = puestoRepository.findById(id)
                 .orElseThrow(() -> new PuestoNotFoundException(id));
+        return puestoMapper.puestoToDto(puesto);
     }
     
     public Puesto updatePuesto(Puesto newPuesto, Long rolId, Long unidadId, Long id){

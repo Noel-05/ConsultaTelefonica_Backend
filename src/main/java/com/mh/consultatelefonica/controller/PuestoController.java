@@ -4,6 +4,7 @@
  */
 package com.mh.consultatelefonica.controller;
 
+import com.mh.consultatelefonica.dto.PuestoDTO;
 import com.mh.consultatelefonica.model.Puesto;
 import com.mh.consultatelefonica.service.PuestoService;
 import java.util.List;
@@ -32,12 +33,12 @@ public class PuestoController {
     }
     
     @GetMapping("/puestos")
-    public List<Puesto> getPuestos(){
+    public List<PuestoDTO> getPuestos(){
         return puestoService.getPuestos();
     }
     
     @GetMapping("/puesto/{id}")
-    public Puesto getPuestoById(@PathVariable Long id){
+    public PuestoDTO getPuestoById(@PathVariable Long id){
         return puestoService.getPuestoById(id);
     }
     
