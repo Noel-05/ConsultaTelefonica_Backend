@@ -4,7 +4,9 @@
  */
 package com.mh.consultatelefonica.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -27,11 +29,14 @@ public class EmpleadoTelefono {
     
     private String phone_number;
     
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empleado_id")
     private Empleado empleado;
     
-    @ManyToOne
+    
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tipo_telefono_id")
     private TipoTelefono tipo_telefono;
 }

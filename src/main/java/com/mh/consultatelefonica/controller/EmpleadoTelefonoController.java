@@ -38,12 +38,12 @@ public class EmpleadoTelefonoController {
     }
     
     @GetMapping("/empleadoTelefonos")
-    public List<EmpleadoTelefono> getEmpleadoTelefonos(){
+    public List<EmpleadoTelefonoDTO> getEmpleadoTelefonos(){
         return empleadoTelefonoService.getEmpleadoTelefonos();
     }
     
     @GetMapping("/empleadoTelefono/{id}")
-    public EmpleadoTelefono getEmpleadoTelefonoById(@PathVariable Long id){
+    public EmpleadoTelefonoDTO getEmpleadoTelefonoById(@PathVariable Long id){
         return empleadoTelefonoService.getEmpleadoTelefonoById(id);
     }
     

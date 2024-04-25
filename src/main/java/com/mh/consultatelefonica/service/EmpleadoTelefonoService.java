@@ -49,13 +49,15 @@ public class EmpleadoTelefonoService {
         return empleadoTelefonoRepository.save(newEmpleadoTelefono);
     }
     
-    public List<EmpleadoTelefono> getEmpleadoTelefonos(){
-        return empleadoTelefonoRepository.findAll();
+    public List<EmpleadoTelefonoDTO> getEmpleadoTelefonos(){
+        List<EmpleadoTelefono> empleadoTelefonoList = empleadoTelefonoRepository.findAll();
+        return empleadoTelefonoMapper.empleadoTelefonoToDtoList(empleadoTelefonoList);
     }
     
-    public EmpleadoTelefono getEmpleadoTelefonoById(Long id){
-        return empleadoTelefonoRepository.findById(id)
+    public EmpleadoTelefonoDTO getEmpleadoTelefonoById(Long id){
+        EmpleadoTelefono empleadoTelefono = empleadoTelefonoRepository.findById(id)
                 .orElseThrow(() -> new EmpleadoTelefonoNotFoundException(id));
+        return empleadoTelefonoMapper.empleadoTelefonoToDto(empleadoTelefono);
     }
     
     public EmpleadoTelefono updateEmpleadoTelefono(EmpleadoTelefono newEmpleadoTelefono, Long tipoTelefonoId, Long id){
