@@ -5,8 +5,10 @@
 package com.mh.consultatelefonica.service;
 
 import com.mh.consultatelefonica.dto.EmpleadoDTO;
+import com.mh.consultatelefonica.dto.PuestoDTO;
 import com.mh.consultatelefonica.exception.EmpleadoNotFoundException;
 import com.mh.consultatelefonica.mapper.EmpleadoMapper;
+import com.mh.consultatelefonica.mapper.PuestoMapper;
 import com.mh.consultatelefonica.model.Empleado;
 import com.mh.consultatelefonica.model.Puesto;
 import com.mh.consultatelefonica.repository.EmpleadoRepository;
@@ -26,13 +28,17 @@ public class EmpleadoService {
     private PuestoService puestoService;
     
     @Autowired
+    private PuestoMapper puestoMapper;
+    
+    @Autowired
     private EmpleadoRepository empleadoRepository;
     
     @Autowired
     private EmpleadoMapper empleadoMapper;
     
     public Empleado saveEmpleado(Empleado newEmpleado, Long puestoId){
-        Puesto findPuesto = puestoService.getPuestoById(puestoId);
+        PuestoDTO puestoDto = puestoService.getPuestoById(puestoId);
+        Puesto findPuesto = puestoMapper.puestoDtoToEntity(puestoDto);
         newEmpleado.setPuesto(findPuesto);
         
         return empleadoRepository.save(newEmpleado);
@@ -50,7 +56,8 @@ public class EmpleadoService {
     }
     
     public Empleado updateEmpleado(Empleado newEmpleado, Long puestoId, Long id){
-        Puesto findPuesto = puestoService.getPuestoById(puestoId);
+        PuestoDTO puestoDto = puestoService.getPuestoById(puestoId);
+        Puesto findPuesto = puestoMapper.puestoDtoToEntity(puestoDto);
         
         return empleadoRepository.findById(id)
                 .map(empleado -> {
