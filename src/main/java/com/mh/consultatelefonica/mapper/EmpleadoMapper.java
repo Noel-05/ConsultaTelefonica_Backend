@@ -7,6 +7,7 @@ package com.mh.consultatelefonica.mapper;
 import com.mh.consultatelefonica.dto.EmpleadoDTO;
 import com.mh.consultatelefonica.model.Empleado;
 import java.util.List;
+import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -30,6 +31,9 @@ public interface EmpleadoMapper {
     @Mapping(source = "puesto.unidad.dependencia.id", target = "dependencia_id")
     @Mapping(source = "puesto.unidad.dependencia.name", target = "dependencia_name")
     EmpleadoDTO empleadoToDto(Empleado empleado);
+    
+    @InheritInverseConfiguration
+    Empleado empleadoDtoToEntity(EmpleadoDTO empleadoDto);
     
     List<EmpleadoDTO> empleadoToDtoList(List<Empleado> empleadosList);
 }

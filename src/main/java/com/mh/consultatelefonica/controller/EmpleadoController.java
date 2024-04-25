@@ -36,12 +36,12 @@ public class EmpleadoController {
     }
     
     @GetMapping("/empleados")
-    public List<Empleado> getEmpleados(){
+    public List<EmpleadoDTO> getEmpleados(){
         return empleadoService.getEmpleados();
     }
     
     @GetMapping("/empleado/{id}")
-    public Empleado getEmpleadoById(@PathVariable Long id){
+    public EmpleadoDTO getEmpleadoById(@PathVariable Long id){
         return empleadoService.getEmpleadoById(id);
     }
     

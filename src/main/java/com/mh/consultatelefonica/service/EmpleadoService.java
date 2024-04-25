@@ -38,13 +38,15 @@ public class EmpleadoService {
         return empleadoRepository.save(newEmpleado);
     }
     
-    public List<Empleado> getEmpleados(){
-        return empleadoRepository.findAll();
+    public List<EmpleadoDTO> getEmpleados(){
+        List<Empleado> empleadoList = empleadoRepository.findAll();
+        return empleadoMapper.empleadoToDtoList(empleadoList);
     }
     
-    public Empleado getEmpleadoById(Long id){
-        return empleadoRepository.findById(id)
+    public EmpleadoDTO getEmpleadoById(Long id){
+        Empleado empleado = empleadoRepository.findById(id)
                 .orElseThrow(() -> new EmpleadoNotFoundException(id));
+        return empleadoMapper.empleadoToDto(empleado);
     }
     
     public Empleado updateEmpleado(Empleado newEmpleado, Long puestoId, Long id){

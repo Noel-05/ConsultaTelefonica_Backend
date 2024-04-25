@@ -4,8 +4,10 @@
  */
 package com.mh.consultatelefonica.service;
 
+import com.mh.consultatelefonica.dto.EmpleadoDTO;
 import com.mh.consultatelefonica.dto.EmpleadoTelefonoDTO;
 import com.mh.consultatelefonica.exception.EmpleadoTelefonoNotFoundException;
+import com.mh.consultatelefonica.mapper.EmpleadoMapper;
 import com.mh.consultatelefonica.mapper.EmpleadoTelefonoMapper;
 import com.mh.consultatelefonica.model.Empleado;
 import com.mh.consultatelefonica.model.EmpleadoTelefono;
@@ -25,6 +27,9 @@ public class EmpleadoTelefonoService {
     @Autowired
     private EmpleadoService empleadoService;
     
+    @Autowired 
+    private EmpleadoMapper empleadoMapper;
+    
     @Autowired
     private TipoTelefonoService tipoTelefonoService;
     
@@ -35,7 +40,8 @@ public class EmpleadoTelefonoService {
     private EmpleadoTelefonoMapper empleadoTelefonoMapper;
     
     public EmpleadoTelefono saveEmpleadoTelefono(EmpleadoTelefono newEmpleadoTelefono, Long empleadoId, Long tipoTelefonoId){
-        Empleado findEmpleado = empleadoService.getEmpleadoById(empleadoId);
+        EmpleadoDTO empleadoDto = empleadoService.getEmpleadoById(empleadoId);
+        Empleado findEmpleado = empleadoMapper.empleadoDtoToEntity(empleadoDto);
         TipoTelefono findTipoTelefono = tipoTelefonoService.getTipoTelefonoById(tipoTelefonoId);
         newEmpleadoTelefono.setEmpleado(findEmpleado);        
         newEmpleadoTelefono.setTipo_telefono(findTipoTelefono);
