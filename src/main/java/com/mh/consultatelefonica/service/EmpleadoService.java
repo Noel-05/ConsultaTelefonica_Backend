@@ -36,9 +36,11 @@ public class EmpleadoService {
     @Autowired
     private EmpleadoMapper empleadoMapper;
     
-    public Empleado saveEmpleado(Empleado newEmpleado, Long puestoId){
-        PuestoDTO puestoDto = puestoService.getPuestoById(puestoId);
+    public Empleado saveEmpleado(EmpleadoDTO empleadoDto){
+        PuestoDTO puestoDto = puestoService.getPuestoById(empleadoDto.getPuesto_id());
         Puesto findPuesto = puestoMapper.puestoDtoToEntity(puestoDto);
+        
+        Empleado newEmpleado = empleadoMapper.empleadoDtoToEntity(empleadoDto);
         newEmpleado.setPuesto(findPuesto);
         
         return empleadoRepository.save(newEmpleado);
@@ -55,9 +57,11 @@ public class EmpleadoService {
         return empleadoMapper.empleadoToDto(empleado);
     }
     
-    public Empleado updateEmpleado(Empleado newEmpleado, Long puestoId, Long id){
-        PuestoDTO puestoDto = puestoService.getPuestoById(puestoId);
+    public Empleado updateEmpleado(EmpleadoDTO empleadoDto, Long id){
+        PuestoDTO puestoDto = puestoService.getPuestoById(empleadoDto.getPuesto_id());
         Puesto findPuesto = puestoMapper.puestoDtoToEntity(puestoDto);
+        
+        Empleado newEmpleado = empleadoMapper.empleadoDtoToEntity(empleadoDto);
         
         return empleadoRepository.findById(id)
                 .map(empleado -> {

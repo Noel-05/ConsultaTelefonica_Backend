@@ -30,9 +30,9 @@ public class EmpleadoController {
     @Autowired
     private EmpleadoService empleadoService;
     
-    @PostMapping("/empleado/{puestoId}")
-    public Empleado newEmpleado(@RequestBody Empleado newEmpleado, @PathVariable Long puestoId){
-        return empleadoService.saveEmpleado(newEmpleado, puestoId);
+    @PostMapping("/empleado")
+    public Empleado newEmpleado(@RequestBody EmpleadoDTO newEmpleado){
+        return empleadoService.saveEmpleado(newEmpleado);
     }
     
     @GetMapping("/empleados")
@@ -45,9 +45,9 @@ public class EmpleadoController {
         return empleadoService.getEmpleadoById(id);
     }
     
-    @PutMapping("/empleado/{puestoId}/{id}")
-    public Empleado updateEmpleado(@RequestBody Empleado newEmpleado, @PathVariable("puestoId") Long puestoId, @PathVariable("id") Long id){
-        return empleadoService.updateEmpleado(newEmpleado, puestoId, id);
+    @PutMapping("/empleado/{id}")
+    public Empleado updateEmpleado(@RequestBody EmpleadoDTO newEmpleado, @PathVariable Long id){
+        return empleadoService.updateEmpleado(newEmpleado, id);
     }
     
     @DeleteMapping("/empleado/{id}")
