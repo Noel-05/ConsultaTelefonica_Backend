@@ -30,8 +30,10 @@ public class UnidadService {
     @Autowired
     private UnidadMapper unidadMapper;
     
-    public Unidad saveUnidad(Unidad newUnidad, Long dependenciaId){
-        Dependencia dependencia = dependenciaService.getDependenciaById(dependenciaId);
+    public Unidad saveUnidad(UnidadDTO unidadDto){
+        Dependencia dependencia = dependenciaService.getDependenciaById(unidadDto.getDependencia_id());
+        
+        Unidad newUnidad = unidadMapper.unidadDtoToEntity(unidadDto);
         newUnidad.setDependencia(dependencia);
         
         return unidadRepository.save(newUnidad);
@@ -48,8 +50,10 @@ public class UnidadService {
         return unidadMapper.unidadToDto(unidad);
     }
     
-    public Unidad updateUnidad(Unidad newUnidad, Long dependenciaId, Long id){
-        Dependencia dependencia = dependenciaService.getDependenciaById(dependenciaId);
+    public Unidad updateUnidad(UnidadDTO unidadDto, Long id){
+        Dependencia dependencia = dependenciaService.getDependenciaById(unidadDto.getDependencia_id());
+        
+        Unidad newUnidad = unidadMapper.unidadDtoToEntity(unidadDto);
         
         return unidadRepository.findById(id)
                 .map(unidad -> {

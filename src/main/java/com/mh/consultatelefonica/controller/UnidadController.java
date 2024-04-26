@@ -29,9 +29,9 @@ public class UnidadController {
     @Autowired
     private UnidadService unidadService;
     
-    @PostMapping("/unidad/{dependenciaId}")
-    public Unidad newUnidad(@RequestBody Unidad newUnidad, @PathVariable Long dependenciaId){
-        return unidadService.saveUnidad(newUnidad, dependenciaId);
+    @PostMapping("/unidad")
+    public Unidad newUnidad(@RequestBody UnidadDTO newUnidad){
+        return unidadService.saveUnidad(newUnidad);
     }
     
     @GetMapping("/unidades")
@@ -44,9 +44,9 @@ public class UnidadController {
         return unidadService.getUnidadById(id);
     }
     
-    @PutMapping("/unidad/{dependenciaId}/{id}")
-    public Unidad updateUnidad(@RequestBody Unidad newUnidad, @PathVariable("dependenciaId") Long dependenciaId, @PathVariable("id") Long id){
-        return unidadService.updateUnidad(newUnidad, dependenciaId, id);
+    @PutMapping("/unidad/{id}")
+    public Unidad updateUnidad(@RequestBody UnidadDTO newUnidad, @PathVariable Long id){
+        return unidadService.updateUnidad(newUnidad, id);
     }
     
     @DeleteMapping("/unidad/{id}")
