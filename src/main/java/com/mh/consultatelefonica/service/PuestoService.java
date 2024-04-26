@@ -39,10 +39,13 @@ public class PuestoService {
     @Autowired
     private PuestoMapper puestoMapper;
     
-    public Puesto savePuesto(Puesto newPuesto, Long rolId, Long unidadId){
-        Rol findRol = rolService.getRolById(rolId);
-        UnidadDTO unidadDto = unidadService.getUnidadById(unidadId);
+    public Puesto savePuesto(PuestoDTO puestoDto){
+        Rol findRol = rolService.getRolById(puestoDto.getRol_id());
+        
+        UnidadDTO unidadDto = unidadService.getUnidadById(puestoDto.getUnidad_id());
         Unidad findUnidad = unidadMapper.unidadDtoToEntity(unidadDto);
+        
+        Puesto newPuesto = puestoMapper.puestoDtoToEntity(puestoDto);
         newPuesto.setRol(findRol);
         newPuesto.setUnidad(findUnidad);
         
@@ -60,10 +63,13 @@ public class PuestoService {
         return puestoMapper.puestoToDto(puesto);
     }
     
-    public Puesto updatePuesto(Puesto newPuesto, Long rolId, Long unidadId, Long id){
-        Rol findRol = rolService.getRolById(rolId);
-        UnidadDTO unidadDto = unidadService.getUnidadById(unidadId);
+    public Puesto updatePuesto(PuestoDTO puestoDto, Long id){
+        Rol findRol = rolService.getRolById(puestoDto.getRol_id());
+        
+        UnidadDTO unidadDto = unidadService.getUnidadById(puestoDto.getUnidad_id());
         Unidad findUnidad = unidadMapper.unidadDtoToEntity(unidadDto);
+        
+        Puesto newPuesto = puestoMapper.puestoDtoToEntity(puestoDto);
         
         return puestoRepository.findById(id)
                 .map(puesto -> {

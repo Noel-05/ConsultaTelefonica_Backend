@@ -27,9 +27,9 @@ public class PuestoController {
     @Autowired 
     private PuestoService puestoService;
     
-    @PostMapping("/puesto/{rolId}/{unidadId}")
-    public Puesto newPuesto(@RequestBody Puesto newPuesto, @PathVariable("rolId") Long rolId, @PathVariable("unidadId") Long unidadId){
-        return puestoService.savePuesto(newPuesto, rolId, unidadId);
+    @PostMapping("/puesto")
+    public Puesto newPuesto(@RequestBody PuestoDTO newPuesto){
+        return puestoService.savePuesto(newPuesto);
     }
     
     @GetMapping("/puestos")
@@ -42,9 +42,9 @@ public class PuestoController {
         return puestoService.getPuestoById(id);
     }
     
-    @PutMapping("/puesto/{rolId}/{unidadId}/{id}")
-    public Puesto updatePuesto(@RequestBody Puesto newPuesto, @PathVariable("rolId") Long rolId, @PathVariable("unidadId") Long unidadId, @PathVariable("id") Long id){
-        return puestoService.updatePuesto(newPuesto, rolId, unidadId, id);
+    @PutMapping("/puesto/{id}")
+    public Puesto updatePuesto(@RequestBody PuestoDTO newPuesto, @PathVariable Long id){
+        return puestoService.updatePuesto(newPuesto, id);
     }
     
     @DeleteMapping("/puesto/{id}")
