@@ -69,4 +69,9 @@ public class EmpleadoController {
     public List<EmpleadoDTO> getEmpleadosByUnidad(@PathVariable Long unidadId){
         return empleadoService.getEmpleadosByUnidad(unidadId);
     }
+    
+    @GetMapping("/empleados/cumpleanios")
+    public List<EmpleadoDTO> getEmpleadosCumpleanios(){
+        return empleadoService.getEmpleadosCumpleanios();
+    }
 }

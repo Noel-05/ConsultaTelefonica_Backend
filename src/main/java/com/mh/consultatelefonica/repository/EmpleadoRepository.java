@@ -31,4 +31,7 @@ public interface EmpleadoRepository extends JpaRepository<Empleado, Long>{
     
     @Query("SELECT e FROM Empleado e INNER JOIN e.puesto p INNER JOIN p.unidad u WHERE u.id = :unidadId")
     public List<Empleado> getEmpleadosByUnidad(Long unidadId);
+    
+    @Query("SELECT e FROM Empleado e WHERE DATE_FORMAT(e.birth_date, '%m%d') = DATE_FORMAT(CURRENT_DATE(), '%m%d')")
+    public List<Empleado> getEmpleadosCumpleanieros();
 }

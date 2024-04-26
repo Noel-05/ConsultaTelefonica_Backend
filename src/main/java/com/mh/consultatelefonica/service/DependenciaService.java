@@ -9,6 +9,7 @@ import com.mh.consultatelefonica.model.Dependencia;
 import com.mh.consultatelefonica.repository.DependenciaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -27,7 +28,7 @@ public class DependenciaService {
     }
     
     public List<Dependencia> getDependencias(){
-        return dependenciaRepository.findAll();
+        return dependenciaRepository.findAll(Sort.by(Sort.Direction.ASC, "code"));
     }
     
     public Dependencia getDependenciaById(Long id){

@@ -124,4 +124,10 @@ public class EmpleadoService {
         
         return empleadoMapper.empleadoToDtoList(empleadosList);
     }
+    
+    public List<EmpleadoDTO> getEmpleadosCumpleanios(){
+        List<Empleado> empleadosList = empleadoRepository.getEmpleadosCumpleanieros();
+        
+        return empleadoMapper.empleadoToDtoList(empleadosList);
+    }
 }
