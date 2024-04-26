@@ -20,6 +20,8 @@ import org.mapstruct.MappingConstants;
 public interface EmpleadoTelefonoMapper {
     
     @Mapping(source = "empleado.id", target = "empleado_id")
+    @Mapping(source = "empleado.first_name", target = "empleado_first_name")
+    @Mapping(source = "empleado.last_name", target = "empleado_last_name")
     @Mapping(source = "tipo_telefono.id", target = "tipo_telefono_id")
     @Mapping(source = "tipo_telefono.name", target = "tipo_telefono_name")
     EmpleadoTelefonoDTO empleadoTelefonoToDto(EmpleadoTelefono empleadoTelefono);

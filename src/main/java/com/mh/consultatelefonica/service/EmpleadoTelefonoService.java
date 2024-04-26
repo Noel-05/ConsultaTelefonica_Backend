@@ -39,10 +39,13 @@ public class EmpleadoTelefonoService {
     @Autowired 
     private EmpleadoTelefonoMapper empleadoTelefonoMapper;
     
-    public EmpleadoTelefono saveEmpleadoTelefono(EmpleadoTelefono newEmpleadoTelefono, Long empleadoId, Long tipoTelefonoId){
-        EmpleadoDTO empleadoDto = empleadoService.getEmpleadoById(empleadoId);
+    public EmpleadoTelefono saveEmpleadoTelefono(EmpleadoTelefonoDTO empleadoTelefonoDto){
+        EmpleadoDTO empleadoDto = empleadoService.getEmpleadoById(empleadoTelefonoDto.getEmpleado_id());
         Empleado findEmpleado = empleadoMapper.empleadoDtoToEntity(empleadoDto);
-        TipoTelefono findTipoTelefono = tipoTelefonoService.getTipoTelefonoById(tipoTelefonoId);
+        
+        TipoTelefono findTipoTelefono = tipoTelefonoService.getTipoTelefonoById(empleadoTelefonoDto.getTipo_telefono_id());
+        
+        EmpleadoTelefono newEmpleadoTelefono = empleadoTelefonoMapper.empleadoTelefonoDtoToEntity(empleadoTelefonoDto);
         newEmpleadoTelefono.setEmpleado(findEmpleado);        
         newEmpleadoTelefono.setTipo_telefono(findTipoTelefono);
         
@@ -60,8 +63,10 @@ public class EmpleadoTelefonoService {
         return empleadoTelefonoMapper.empleadoTelefonoToDto(empleadoTelefono);
     }
     
-    public EmpleadoTelefono updateEmpleadoTelefono(EmpleadoTelefono newEmpleadoTelefono, Long tipoTelefonoId, Long id){
-        TipoTelefono findTipoTelefono = tipoTelefonoService.getTipoTelefonoById(tipoTelefonoId);
+    public EmpleadoTelefono updateEmpleadoTelefono(EmpleadoTelefonoDTO empleadoTelefonoDto, Long id){
+        TipoTelefono findTipoTelefono = tipoTelefonoService.getTipoTelefonoById(empleadoTelefonoDto.getTipo_telefono_id());
+        
+        EmpleadoTelefono newEmpleadoTelefono = empleadoTelefonoMapper.empleadoTelefonoDtoToEntity(empleadoTelefonoDto);
         
         return empleadoTelefonoRepository.findById(id)
                 .map(empleadoTelefono -> {

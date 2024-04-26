@@ -18,9 +18,11 @@ public class EmpleadoTelefonoDTO {
     private Long id;
     private String phone_number;
     
-    private String empleado_id;
+    private Long empleado_id;
+    private String empleado_first_name;
+    private String empleado_last_name;
     
-    private String tipo_telefono_id;
+    private Long tipo_telefono_id;
     private String tipo_telefono_name;
 
 }

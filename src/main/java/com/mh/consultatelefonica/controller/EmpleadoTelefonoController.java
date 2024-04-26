@@ -29,12 +29,9 @@ public class EmpleadoTelefonoController {
     @Autowired
     private EmpleadoTelefonoService empleadoTelefonoService;
     
-    @PostMapping("/empleadoTelefono/{empleadoId}/{tipoTelefonoId}")
-    public EmpleadoTelefono newEmpleadoTelefono(
-            @RequestBody EmpleadoTelefono newEmpleadoTelefono, 
-            @PathVariable("empleadoId") Long empleadoId, 
-            @PathVariable("tipoTelefonoId") Long tipoTelefonoId){
-        return empleadoTelefonoService.saveEmpleadoTelefono(newEmpleadoTelefono, empleadoId, tipoTelefonoId);
+    @PostMapping("/empleadoTelefono")
+    public EmpleadoTelefono newEmpleadoTelefono(@RequestBody EmpleadoTelefonoDTO newEmpleadoTelefono){
+        return empleadoTelefonoService.saveEmpleadoTelefono(newEmpleadoTelefono);
     }
     
     @GetMapping("/empleadoTelefonos")
@@ -47,12 +44,9 @@ public class EmpleadoTelefonoController {
         return empleadoTelefonoService.getEmpleadoTelefonoById(id);
     }
     
-    @PutMapping("/empleadoTelefono/{tipoTelefonoId}/{id}")
-    public EmpleadoTelefono updateEmpleadoTelefono(
-            @RequestBody EmpleadoTelefono newEmpleadoTelefono,
-            @PathVariable("tipoTelefonoId") Long tipoTelefonoId,
-            @PathVariable("id") Long id){
-        return empleadoTelefonoService.updateEmpleadoTelefono(newEmpleadoTelefono, tipoTelefonoId, id);
+    @PutMapping("/empleadoTelefono/{id}")
+    public EmpleadoTelefono updateEmpleadoTelefono(@RequestBody EmpleadoTelefonoDTO newEmpleadoTelefono, @PathVariable Long id){
+        return empleadoTelefonoService.updateEmpleadoTelefono(newEmpleadoTelefono, id);
     }
     
     @DeleteMapping("/empleadoTelefono/{id}")
