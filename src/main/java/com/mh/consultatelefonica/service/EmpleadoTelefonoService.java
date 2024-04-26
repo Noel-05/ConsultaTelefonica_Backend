@@ -54,12 +54,14 @@ public class EmpleadoTelefonoService {
     
     public List<EmpleadoTelefonoDTO> getEmpleadoTelefonos(){
         List<EmpleadoTelefono> empleadoTelefonoList = empleadoTelefonoRepository.findAll();
+        
         return empleadoTelefonoMapper.empleadoTelefonoToDtoList(empleadoTelefonoList);
     }
     
     public EmpleadoTelefonoDTO getEmpleadoTelefonoById(Long id){
         EmpleadoTelefono empleadoTelefono = empleadoTelefonoRepository.findById(id)
                 .orElseThrow(() -> new EmpleadoTelefonoNotFoundException(id));
+        
         return empleadoTelefonoMapper.empleadoTelefonoToDto(empleadoTelefono);
     }
     
@@ -89,6 +91,7 @@ public class EmpleadoTelefonoService {
     
     public List<EmpleadoTelefonoDTO> getTelefonosByEmpleadoId(Long empleadoId){
         List<EmpleadoTelefono> listEmpleadoTelefono = empleadoTelefonoRepository.getTelefonosByEmpleadoId(empleadoId);
+        
         return empleadoTelefonoMapper.empleadoTelefonoToDtoList(listEmpleadoTelefono);
     }
 }

@@ -13,5 +13,4 @@ public class EmpleadoNotFoundException extends RuntimeException {
     public EmpleadoNotFoundException(Long id){
         super("Couldn't find the employee with id :" + id);
     }
-    
 }

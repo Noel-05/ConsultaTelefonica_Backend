@@ -14,8 +14,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PuestoDTO {
-    private Long id;
     
+    private Long id;
     private String name;
     private double salary;
     

@@ -13,5 +13,4 @@ public class RolNotFoundException extends RuntimeException {
     public RolNotFoundException(Long id){
         super("Couldn't find the role with id: " + id);
     }
-    
 }

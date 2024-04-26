@@ -13,5 +13,4 @@ public class TipoTelefonoNotFoundException extends RuntimeException {
     public TipoTelefonoNotFoundException(Long id){
         super("Couldn't find the tipo telefono with id: " + id);
     }
-    
 }

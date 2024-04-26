@@ -54,12 +54,14 @@ public class PuestoService {
     
     public List<PuestoDTO> getPuestos(){
         List<Puesto> puestoList = puestoRepository.findAll();
+        
         return puestoMapper.puestoToDtoList(puestoList);
     }
     
     public PuestoDTO getPuestoById(Long id){
         Puesto puesto = puestoRepository.findById(id)
                 .orElseThrow(() -> new PuestoNotFoundException(id));
+        
         return puestoMapper.puestoToDto(puesto);
     }
     

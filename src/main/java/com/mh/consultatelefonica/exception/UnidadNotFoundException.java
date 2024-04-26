@@ -13,5 +13,4 @@ public class UnidadNotFoundException extends RuntimeException {
     public UnidadNotFoundException(Long id){
         super("Couldn't find the Unidad with id: " + id);
     }
-    
 }

@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UnidadRepository extends JpaRepository<Unidad, Long>{
     
-    @Query("SELECT u FROM Unidad u JOIN u.dependencia d WHERE d.id = :dependenciaId")
+    @Query("SELECT u FROM Unidad u INNER JOIN u.dependencia d WHERE d.id = :dependenciaId")
     public List<Unidad> getUnidadByDependencia(Long dependenciaId);
 }

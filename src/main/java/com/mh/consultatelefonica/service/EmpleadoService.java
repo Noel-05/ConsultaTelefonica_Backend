@@ -48,12 +48,14 @@ public class EmpleadoService {
     
     public List<EmpleadoDTO> getEmpleados(){
         List<Empleado> empleadoList = empleadoRepository.findAll();
+        
         return empleadoMapper.empleadoToDtoList(empleadoList);
     }
     
     public EmpleadoDTO getEmpleadoById(Long id){
         Empleado empleado = empleadoRepository.findById(id)
                 .orElseThrow(() -> new EmpleadoNotFoundException(id));
+        
         return empleadoMapper.empleadoToDto(empleado);
     }
     
@@ -90,29 +92,36 @@ public class EmpleadoService {
     public List<EmpleadoDTO> filterEmpleados(String firstname, String lastname){
         if(!firstname.equals("") && lastname.equals("")){
             List<Empleado> empleadosList = empleadoRepository.filterEmpleadoFirstName(firstname);
+            
             return empleadoMapper.empleadoToDtoList(empleadosList);
         }
         
         if(firstname.equals("") && !lastname.equals("")){
             List<Empleado> empleadosList = empleadoRepository.filterEmpleadoLastName(lastname);
+            
             return empleadoMapper.empleadoToDtoList(empleadosList);
         }
         
         if(!firstname.equals("") && !lastname.equals("")){
             List<Empleado> empleadosList = empleadoRepository.filterEmpleadoFirstAndLastName(firstname, lastname);
+            
             return empleadoMapper.empleadoToDtoList(empleadosList);
+            
         }else{
+            
             return new ArrayList<>();
         }
     }
     
     public List<EmpleadoDTO> getEmpleadosConTelefonos(){
         List<Empleado> empleadosList = empleadoRepository.getEmpleadosConTelefonos();
+        
         return empleadoMapper.empleadoToDtoList(empleadosList);
     }
     
     public List<EmpleadoDTO> getEmpleadosByUnidad(Long unidadId){
         List<Empleado> empleadosList = empleadoRepository.getEmpleadosByUnidad(unidadId);
+        
         return empleadoMapper.empleadoToDtoList(empleadosList);
     }
 }

@@ -41,12 +41,14 @@ public class UnidadService {
     
     public List<UnidadDTO> getUnidades(){
         List<Unidad> unidadesList = unidadRepository.findAll();
+        
         return unidadMapper.unidadToDtoList(unidadesList);
     }
     
     public UnidadDTO getUnidadById(Long id){
         Unidad unidad = unidadRepository.findById(id)
                 .orElseThrow(() -> new UnidadNotFoundException(id));
+        
         return unidadMapper.unidadToDto(unidad);
     }
     
@@ -78,6 +80,7 @@ public class UnidadService {
     
     public List<UnidadDTO> getUnidadByDependencia(Long dependenciaId){
         List<Unidad> listUnidades = unidadRepository.getUnidadByDependencia(dependenciaId);
+        
         return unidadMapper.unidadToDtoList(listUnidades);
     }
 }

@@ -17,6 +17,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmpleadoTelefonoRepository extends JpaRepository<EmpleadoTelefono, Long>{
     
-    @Query("SELECT et FROM EmpleadoTelefono et JOIN et.empleado e WHERE e.id = :empleadoId")
+    @Query("SELECT et FROM EmpleadoTelefono et INNER JOIN et.empleado e WHERE e.id = :empleadoId")
     public List<EmpleadoTelefono> getTelefonosByEmpleadoId(Long empleadoId);
 }
