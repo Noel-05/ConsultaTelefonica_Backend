@@ -14,6 +14,7 @@ import com.mh.consultatelefonica.model.Puesto;
 import com.mh.consultatelefonica.repository.EmpleadoRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,28 +90,73 @@ public class EmpleadoService {
         return "Employee with id " + id + " has been succesfully deleted";
     }
     
-    public List<EmpleadoDTO> filterEmpleados(String firstname, String lastname){
-        if(!firstname.equals("") && lastname.equals("")){
-            List<Empleado> empleadosList = empleadoRepository.filterEmpleadoFirstName(firstname);
-            
-            return empleadoMapper.empleadoToDtoList(empleadosList);
+    public List<EmpleadoDTO> filterEmpleados(String firstname, String lastname, String carnet){
+        String employeeFilter = "";
+        List<Empleado> empleadosList = empleadoRepository.findAll();
+        
+        if(firstname != null && !firstname.equals("")){
+            employeeFilter += 'F';
+        }
+        if(lastname != null && !lastname.equals("")){
+            employeeFilter += 'L';
+        }
+        if(carnet != null && !carnet.equals("")){
+            employeeFilter += 'C';
         }
         
-        if(firstname.equals("") && !lastname.equals("")){
-            List<Empleado> empleadosList = empleadoRepository.filterEmpleadoLastName(lastname);
-            
-            return empleadoMapper.empleadoToDtoList(empleadosList);
+        switch (employeeFilter) {
+            case "F":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getFirst_name().toLowerCase().contains(firstname.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            case "L":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getLast_name().toLowerCase().contains(lastname.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            case "C":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getCarnet().toLowerCase().contains(carnet.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            case "FL":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getFirst_name().toLowerCase().contains(firstname.toLowerCase()))
+                        .filter(empleado -> empleado.getLast_name().toLowerCase().contains(lastname.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            case "FC":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getFirst_name().toLowerCase().contains(firstname.toLowerCase()))
+                        .filter(empleado -> empleado.getCarnet().toLowerCase().contains(carnet.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            case "LC":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getLast_name().toLowerCase().contains(lastname.toLowerCase()))
+                        .filter(empleado -> empleado.getCarnet().toLowerCase().contains(carnet.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            case "FLC":
+                empleadosList = empleadosList.stream()
+                        .filter(empleado -> empleado.getFirst_name().toLowerCase().contains(firstname.toLowerCase()))
+                        .filter(empleado -> empleado.getLast_name().toLowerCase().contains(lastname.toLowerCase()))
+                        .filter(empleado -> empleado.getCarnet().toLowerCase().contains(carnet.toLowerCase()))
+                        .collect(Collectors.toList());
+                break;
+                
+            default:
+                return new ArrayList<>();
         }
-        
-        if(!firstname.equals("") && !lastname.equals("")){
-            List<Empleado> empleadosList = empleadoRepository.filterEmpleadoFirstAndLastName(firstname, lastname);
-            
-            return empleadoMapper.empleadoToDtoList(empleadosList);
-            
-        }else{
-            
-            return new ArrayList<>();
-        }
+                
+        return empleadoMapper.empleadoToDtoList(empleadosList);
     }
     
     public List<EmpleadoDTO> getEmpleadosConTelefonos(){

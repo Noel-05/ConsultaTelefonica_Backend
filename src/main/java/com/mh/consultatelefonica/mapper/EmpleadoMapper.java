@@ -27,8 +27,10 @@ public interface EmpleadoMapper {
     @Mapping(source = "puesto.rol.code", target = "rol_code")
     @Mapping(source = "puesto.rol.name", target = "rol_name")
     @Mapping(source = "puesto.unidad.id", target = "unidad_id")
+    @Mapping(source = "puesto.unidad.code", target = "unidad_code")
     @Mapping(source = "puesto.unidad.name", target = "unidad_name")
     @Mapping(source = "puesto.unidad.dependencia.id", target = "dependencia_id")
+    @Mapping(source = "puesto.unidad.dependencia.code", target = "dependencia_code")
     @Mapping(source = "puesto.unidad.dependencia.name", target = "dependencia_name")
     EmpleadoDTO empleadoToDto(Empleado empleado);
     

@@ -56,8 +56,11 @@ public class EmpleadoController {
     }
     
     @GetMapping("/empleado")
-    public List<EmpleadoDTO> filterEmpleados(@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname){
-        return empleadoService.filterEmpleados(firstname, lastname);
+    public List<EmpleadoDTO> filterEmpleados(
+            @RequestParam(required = false, value = "firstname") String firstname, 
+            @RequestParam(required = false, value = "lastname") String lastname,
+            @RequestParam(required = false, value = "carnet") String carnet){
+        return empleadoService.filterEmpleados(firstname, lastname, carnet);
     }
     
     @GetMapping("/empleado/telefonos")
